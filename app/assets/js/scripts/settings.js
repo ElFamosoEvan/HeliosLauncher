@@ -442,6 +442,10 @@ function populateAuthAccounts(){
 
     authKeys.map((val) => {
         const acc = authAccounts[val]
+        let username = acc.username;
+        if(acc.displayName != null){
+            username = acc.displayName
+        }
         authAccountStr += `<div class="settingsAuthAccount" uuid="${acc.uuid}">
             <div class="settingsAuthAccountLeft">
                 <img class="settingsAuthAccountImage" alt="${acc.displayName}" src="https://crafatar.com/renders/body/${acc.uuid}?scale=3&default=MHF_Steve&overlay">
@@ -450,7 +454,7 @@ function populateAuthAccounts(){
                 <div class="settingsAuthAccountDetails">
                     <div class="settingsAuthAccountDetailPane">
                         <div class="settingsAuthAccountDetailTitle">Username</div>
-                        <div class="settingsAuthAccountDetailValue">${acc.displayName}</div>
+                        <div class="settingsAuthAccountDetailValue">${username}</div>
                     </div>
                     <div class="settingsAuthAccountDetailPane">
                         <div class="settingsAuthAccountDetailTitle">UUID</div>
