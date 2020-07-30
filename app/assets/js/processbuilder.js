@@ -526,7 +526,7 @@ class ProcessBuilder {
                         if(this.authUser.displayName != null){
                             val = this.authUser.displayName.trim()
                         }else{
-                            val = this.authUser.name.trim()
+                            val = this.authUser.username.trim()
                         }
                         break
                     case 'version_name':
@@ -543,7 +543,9 @@ class ProcessBuilder {
                         val = this.versionData.assets
                         break
                     case 'auth_uuid':
-                        val = this.authUser.uuid.trim()
+                        if(this.authUser.uuid != null){
+                            val = this.authUser.uuid.trim()
+                        }
                         break
                     case 'auth_access_token':
                         val = this.authUser.accessToken
