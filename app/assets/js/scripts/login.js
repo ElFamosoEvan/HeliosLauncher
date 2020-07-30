@@ -57,7 +57,7 @@ function validateEmail(value){
     if(value){
         if(!basicEmail.test(value) && !validUsername.test(value)){
             showError(loginEmailError, Lang.queryJS('login.error.invalidValue'))
-            loginDisabled(true)
+            loginDisabled(false)
             lu = false
         } else {
             loginEmailError.style.opacity = 0
@@ -69,7 +69,7 @@ function validateEmail(value){
     } else {
         lu = false
         showError(loginEmailError, Lang.queryJS('login.error.requiredValue'))
-        loginDisabled(true)
+        loginDisabled(false)
     }
 }
 
@@ -87,8 +87,8 @@ function validatePassword(value){
         }
     } else {
         lp = false
-        showError(loginPasswordError, Lang.queryJS('login.error.invalidValue'))
-        loginDisabled(true)
+        //showError(loginPasswordError, Lang.queryJS('login.error.invalidValue'))
+        //loginDisabled(false)
     }
 }
 
@@ -98,8 +98,8 @@ loginUsername.addEventListener('focusout', (e) => {
     shakeError(loginEmailError)
 })
 loginPassword.addEventListener('focusout', (e) => {
-    validatePassword(e.target.value)
-    shakeError(loginPasswordError)
+    //validatePassword(e.target.value)
+    //shakeError(loginPasswordError)
 })
 
 // Validate input for each field.
@@ -116,9 +116,10 @@ loginPassword.addEventListener('input', (e) => {
  * @param {boolean} v True to enable, false to disable.
  */
 function loginDisabled(v){
-    if(loginButton.disabled !== v){
+    /*if(loginButton.disabled !== v){
         loginButton.disabled = v
-    }
+    }*/
+    loginButton.disabled = false
 }
 
 /**

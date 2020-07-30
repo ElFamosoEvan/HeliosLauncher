@@ -6,7 +6,7 @@ const logger = require('./loggerutil')('%c[ConfigManager]', 'color: #a02d2a; fon
 
 const sysRoot = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME)
 // TODO change
-const dataPath = path.join(sysRoot, '.helioslauncher')
+const dataPath = path.join(sysRoot, '.ludererp')
 
 // Forked processes do not have access to electron, so we have this workaround.
 const launcherDir = process.env.CONFIG_DIRECT_PATH || require('electron').remote.app.getPath('userData')
@@ -351,6 +351,16 @@ exports.addAuthAccount = function(uuid, accessToken, username, displayName){
     return config.authenticationDatabase[uuid]
 }
 
+exports.addCrackAccount = function(username){
+    console.log('crack accound added with usernam : '+username)
+    config.selectedAccount = username
+    config.authenticationDatabase[username] = {
+        username: username.trim(),
+        displayName: username.trim()
+    }
+    return config.authenticationDatabase[username]
+}
+
 /**
  * Remove an authenticated account from the database. If the account
  * was also the selected account, a new one will be selected. If there
@@ -383,6 +393,8 @@ exports.removeAuthAccount = function(uuid){
  * @returns {Object} The selected authenticated account.
  */
 exports.getSelectedAccount = function(){
+    console.log('selected account : '+config.selectedAccount)
+    console.log('authenticationDatabase : '+ JSON.stringify(config.authenticationDatabase[config.selectedAccount]))
     return config.authenticationDatabase[config.selectedAccount]
 }
 
