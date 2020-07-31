@@ -353,11 +353,16 @@ exports.addAuthAccount = function(uuid, accessToken, username, displayName){
 
 exports.addCrackAccount = function(username){
     console.log('crack accound added with usernam : '+username)
+    console.log('config : '+config)
     config.selectedAccount = username
+    console.log('selectedAccount = '+config.selectedAccount)
     config.authenticationDatabase[username] = {
-        username: username.trim(),
-        displayName: username.trim()
+        username: username,
+        displayName: username
     }
+
+    
+    console.log('authenticationDatabase username = '+config.authenticationDatabase[username])
     return config.authenticationDatabase[username]
 }
 

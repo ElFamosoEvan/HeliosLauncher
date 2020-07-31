@@ -29,9 +29,26 @@ const loggerSuccess = LoggerUtil('%c[AuthManager]', 'color: #209b07; font-weight
 exports.addAccount = async function(username, password){
     if(username){
         if(password){
-            addPremiumAccount(username, password);
+            /*try {
+                const session = await Mojang.authenticate(username, password, ConfigManager.getClientToken())
+                if(session.selectedProfile != null){
+                    const ret = ConfigManager.addAuthAccount(session.selectedProfile.id, session.accessToken, username, session.selectedProfile.name)
+                    if(ConfigManager.getClientToken() == null){
+                        ConfigManager.setClientToken(session.clientToken)
+                    }
+                    ConfigManager.save()
+                    return ret
+                } else {
+                    throw new Error('NotPaidAccount')
+                }
+                
+            } catch (err){
+                return Promise.reject(err)
+            }*/
+            //addPremiumAccount(username, password);
         }else{
             ConfigManager.addCrackAccount(username);
+            //ConfigManager.addCrackAccount(username);
         }
     }
     /*try {
@@ -53,11 +70,25 @@ exports.addAccount = async function(username, password){
 }
 
 exports.addCrackAccount = async function(username){
-    try{
+    ConfigManager.addAuthAccount(username)
+    try {
+            const ret = ConfigManager.addAuthAccount(username)
+            if(ConfigManager.username == null){
+                ConfigManager.username == username;
+            }
+            ConfigManager.setSelectedAccount(username)
+            ConfigManager.save()
+            return ret;
+        
+    } catch (err){
+        return Promise.reject(err)
+    }
+    
+    /*try{
         ConfigManager.addCrackAccount(username)
     }catch(err){
         return Promise.reject(err);
-    }
+    }*/
 }
 
 exports.addPremiumAccount = async function(username, password){

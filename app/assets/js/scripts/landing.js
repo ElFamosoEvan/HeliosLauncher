@@ -125,6 +125,7 @@ document.getElementById('avatarOverlay').onclick = (e) => {
 // Bind selected account
 function updateSelectedAccount(authUser){
     let username = 'No Account Selected'
+    if(authUser == null) authUser = ConfigManager.getSelectedAccount();
     console.log('update account : '+authUser)
     if(authUser != null){
         console.log('auth user OK')
@@ -231,7 +232,8 @@ const refreshServerStatus = async function(fade = false){
 
     try {
         const serverURL = new URL('my://' + serv.getAddress())
-        const servStat = await ServerStatus.getStatus(serverURL.hostname, serverURL.port)
+        //const servStat = await ServerStatus.getStatus(serverURL.hostname, serverURL.port)
+        const servStat = await ServerStatus.getStatus('62.210.41.40', '25466')
         if(servStat.online){
             pLabel = 'PLAYERS'
             pVal = servStat.onlinePlayers + '/' + servStat.maxPlayers
@@ -685,9 +687,9 @@ function dlAsync(login = true){
                 const gameStateChange = function(data){
                     data = data.trim()
                     if(SERVER_JOINED_REGEX.test(data)){
-                        DiscordWrapper.updateDetails('Exploring the Realm!')
+                        DiscordWrapper.updateDetails('')
                     } else if(GAME_JOINED_REGEX.test(data)){
-                        DiscordWrapper.updateDetails('Sailing to Westeros!')
+                        DiscordWrapper.updateDetails('En jeu !')
                     }
                 }
 
